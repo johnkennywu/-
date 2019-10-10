@@ -8,13 +8,13 @@ package com.gf.intelligence.dto;
  * @date 2019/10/9
  */
 public class ClickRequest {
-    private Long id;
+    private String id;
 
-    public Long getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(String id) {
         this.id = id;
     }
 }

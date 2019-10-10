@@ -8,17 +8,17 @@ package com.gf.intelligence.dto;
  * @date 2019/10/9
  */
 public class Question {
-    private Long id;
+    private String id;
     private String question;
     private String answer;
     private String keyword;
-    private Long clicks;
+    private String clicks;
 
-    public long getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(String id) {
         this.id = id;
     }
 
@@ -46,11 +46,11 @@ public class Question {
         this.keyword = keyword;
     }
 
-    public long getClicks() {
+    public String getClicks() {
         return clicks;
     }
 
-    public void setClicks(long clicks) {
+    public void setClicks(String clicks) {
         this.clicks = clicks;
     }
 }

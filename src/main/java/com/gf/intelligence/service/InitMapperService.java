@@ -1,5 +1,6 @@
 package com.gf.intelligence.service;
 
+import com.gf.intelligence.dto.Question;
 import org.elasticsearch.action.admin.indices.alias.Alias;
 import org.elasticsearch.action.admin.indices.create.CreateIndexRequest;
 import org.elasticsearch.action.admin.indices.mapping.put.PutMappingRequest;
@@ -13,6 +14,7 @@ import org.springframework.scheduling.annotation.Async;
 import org.springframework.scheduling.annotation.AsyncResult;
 import org.springframework.stereotype.Component;
 
+import java.util.List;
 import java.util.concurrent.Future;
 
 /**
@@ -32,29 +34,21 @@ public class InitMapperService {
             XContentBuilder properties = XContentFactory.jsonBuilder()
                     .startObject()
                     .startObject("properties")
-                    .startObject("cmsid").field("type", "keyword").endObject()
-                    .startObject("city").field("type", "keyword").endObject()
-                    .startObject("continent").field("type", "keyword").endObject()
-                    .startObject("country").field("type", "keyword").endObject()
-                    .startObject("title").field("type", "text").field("analyzer", "index_ansj").field("search_analyzer", "query_ansj").endObject()
-                    .startObject("summary").field("type", "text").field("analyzer", "index_ansj").field("search_analyzer", "query_ansj").endObject()
-                    .startObject("subclassification").field("type", "text").field("analyzer", "index_ansj").field("search_analyzer", "query_ansj").endObject()
-                    .startObject("tags").field("type", "text").field("analyzer", "index_ansj").field("search_analyzer", "query_ansj").endObject()
-                    .startObject("classificationId").field("type", "byte").endObject()
-                    .startObject("url").field("type", "keyword").endObject()
-                    .startObject("@timestamp").field("type", "date").endObject() //logstash需要此字段
-                    .startObject("@version").field("type", "keyword").endObject() //logstash需要此字段
+//                    .startObject("id").field("type", "keyword").endObject()
+                    .startObject("question").field("type", "keyword").endObject()
+                    .startObject("answer").field("type", "keyword").endObject()
+                    .startObject("clicks").field("type", "keyword").endObject()
                     .endObject()
                     .endObject();
             //创建index,指定别名alias
-            CreateIndexRequest request = new CreateIndexRequest((tmp?indice.getTmpIndex():indice.getIndex())).alias(new Alias(indice.getAlias())).settings(settingsBuilder);
+            CreateIndexRequest request = new CreateIndexRequest(index);
             client.admin().indices().create(request).get();
             //创建mapping
-            PutMappingRequest mapping = Requests.putMappingRequest((tmp?indice.getTmpIndex():indice.getIndex())).type(indice.getType()).source(properties);
+            PutMappingRequest mapping = Requests.putMappingRequest(index).source(properties);
             client.admin().indices().putMapping(mapping).get();
         }catch (Exception e){
             logger.error("创建索引失败",e);
         }
-        return new AsyncResult<>("ok");
+        return new AsyncResult<String>("ok");
     }
 }

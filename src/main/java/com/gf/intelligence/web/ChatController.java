@@ -63,7 +63,7 @@ public class ChatController {
         for(int i=0; i<SHOW_NUMBER; i++){
             Map<String, Object> docMap = hits[i].getSourceAsMap();
             Question ques = new Question();
-            ques.setId((Long)docMap.get("id"));
+            ques.setId((String)docMap.get("id"));
             ques.setQuestion((String)docMap.get("question"));
             ques.setAnswer((String)docMap.get("answer"));
             questions.add(ques);
@@ -75,7 +75,7 @@ public class ChatController {
     public void click(@RequestBody String request){
         try {
             ClickRequest req = JSON.parseObject(request, ClickRequest.class);
-            UpdateResponse rsp = esClient.client.prepareUpdate("gf", "data", req.getId().toString()).setDoc(XContentFactory.
+            UpdateResponse rsp = esClient.client.prepareUpdate("gf", "data", req.getId()).setDoc(XContentFactory.
                     jsonBuilder().startObject().field("", "").endObject()).execute().get();
         }catch (Exception e){
         }
