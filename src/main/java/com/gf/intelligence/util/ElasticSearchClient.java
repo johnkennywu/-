@@ -30,7 +30,7 @@ public class ElasticSearchClient implements InitializingBean, DisposableBean {
     @Value("${elasticsearch.cluster.name}")
     private String clusterName;
 
-    @Value("{elasticsearch.cluster.nodes}")
+    @Value("${elasticsearch.cluster.nodes}")
     private String clusterNodes;
 
     @Override

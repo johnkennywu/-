@@ -4,7 +4,6 @@ import com.gf.intelligence.dto.ChatRequest;
 import com.gf.intelligence.dto.ClickRequest;
 import com.gf.intelligence.dto.Question;
 import com.gf.intelligence.util.ElasticSearchClient;
-import org.ansj.domain.Result;
 import org.ansj.domain.Term;
 import org.ansj.splitWord.analysis.ToAnalysis;
 import org.apache.commons.lang3.StringUtils;
@@ -34,7 +33,7 @@ import java.util.Map;
  * @date 2019/10/8
  */
 @RestController
-@RequestMapping("")
+@RequestMapping("/chat")
 public class ChatController {
     @Autowired
     private ElasticSearchClient esClient;
