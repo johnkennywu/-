@@ -53,9 +53,9 @@
             <version>5.1.5</version>
         </dependency>
         <dependency>
-            <groupId>commons-lang3</groupId>
+            <groupId>org.apache.commons</groupId>
             <artifactId>commons-lang3</artifactId>
-            <version>3.1</version>
+            <version>3.9</version>
         </dependency>
         <dependency>
             <groupId>org.elasticsearch.client</groupId>
