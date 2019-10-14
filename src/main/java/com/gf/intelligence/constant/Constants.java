@@ -13,4 +13,5 @@ public class Constants {
     public static final String GF_INDEX_CLICK = "gf_click";
     public static final String GF_TYPE_CLICK = "click";
     public static final String GF_DATA_PATH = "data/data.xls";
+    public static final String GF_SALT = "WAQCZXSAD";
 }
