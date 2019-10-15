@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8" />
     <title></title>
-    <link rel="stylesheet" type="text/css" href="css.css"/>
+    <link rel="stylesheet" type="text/css" href="/intelligence/static/css/css.css"/>
 </head>
 <body>
 <div class="container">
@@ -25,8 +25,8 @@
     </div>
   </div>
 </div>
-<script type="text/javascript" src="js/jquery.min.js"></script>
-<script src="js/jquery.nicescroll.js"></script>
+<script type="text/javascript" src="/intelligence/static/js/jquery.min.js"></script>
+<script src="/intelligence/static/js/jquery.nicescroll.js"></script>
 <script type="text/javascript">
   $(function(){
     $("#lanrenzhijia").niceScroll({
@@ -43,21 +43,19 @@
 		div.scrollTop = div.scrollHeight;
 	}
   $('.btn6').click(function(){
-      $("#lanrenzhijia").append("<div class='content1'><p>访客：</p><p>"+$('#txt').val()+"</p><div class='clear'></div></div>");
+      $("#lanrenzhijia").append('<div class="content1"><p>访客：</p><p>'+$('#txt').val()+'</p><div class="clear"></div></div>');
 	  setPos();
-      send();
+	  send()
   });
     var webSocket;
     if ("WebSocket" in window)
     {
-        webSocket = new WebSocket("ws://localhost:8088/intelligence/websocket/"+document.getElementById('username').value);
+        webSocket = new WebSocket("ws://localhost:8088/intelligence/websocket/wushubiao");
 
         //连通之后的回调事件
         webSocket.onopen = function()
         {
-            //webSocket.send( document.getElementById('username').value+"已经上线了");
             console.log("已经连通了websocket");
-            setMessageInnerHTML("已经连通了websocket");
         };
 
         //接收后台服务端的消息
@@ -66,23 +64,16 @@
             var received_msg = evt.data;
             console.log("数据已接收:" +received_msg);
             var obj = JSON.parse(received_msg);
-
-            setMessageInnerHTML(received_msg);
         };
 
         //连接关闭的回调事件
         webSocket.onclose = function()
         {
             console.log("连接已关闭...");
-            setMessageInnerHTML("连接已经关闭....");
         };
     }
     else{
         alert("您的浏览器不支持 WebSocket!");
-    }
-    //将消息显示在网页上
-    function setMessageInnerHTML(innerHTML) {
-        document.getElementById('message').innerHTML += innerHTML + '<br/>';
     }
 
     function closeWebSocket() {
@@ -90,8 +81,7 @@
     }
 
     function send() {
-        setMessageInnerHTML($("#txt").val());
-        var message = document.getElementById('text').value;
+        var message = $('#txt').val();
         webSocket.send(message);
     }
 </script>
