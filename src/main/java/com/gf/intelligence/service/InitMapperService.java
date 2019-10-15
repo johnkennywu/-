@@ -38,8 +38,7 @@ import static org.elasticsearch.common.xcontent.XContentFactory.jsonBuilder;
 public class InitMapperService {
     private static Logger logger = LoggerFactory.getLogger(InitMapperService.class);
     @Async
-    public Future<String> createGFMapping(TransportClient client, String index, String type, String index_click,
-                                          String type_click){
+    public Future<String> createGFMapping(TransportClient client, String index, String type){
         logger.info("开始创建索引");
         try{
             XContentBuilder settingsBuilder = XContentFactory.jsonBuilder()
@@ -59,22 +58,13 @@ public class InitMapperService {
                     .startObject()
                     .startObject("data")
                     .startObject("properties")
-                    .startObject("id").field("type", "keyword").endObject()
                     .startObject("question").field("type", "keyword").endObject()
                     .startObject("answer").field("type", "keyword").endObject()
                     .startObject("keywords").field("type","text").field("analyzer","comma").endObject()
-                    .endObject()
-                    .endObject()
-                    .endObject();
-            XContentBuilder properties_click = jsonBuilder()
-                    .startObject()
-                    .startObject("click")
-                    .startObject("_parent")
-                    .field("type","data")
-                    .endObject()
-                    .startObject("properties")
-                    .startObject("id").field("type", "keyword").endObject()
-                    .startObject("clicks").field("type", "long").endObject()
+                    .startObject("mapid").field("type","keyword").endObject()
+                    .startObject("clicks").field("type","long").endObject()
+                    .startObject("joiner").field("type","join")
+                    .startObject("relations").field("parent","child").endObject().endObject()
                     .endObject()
                     .endObject()
                     .endObject();
@@ -86,21 +76,14 @@ public class InitMapperService {
             PutMappingRequest mapping = Requests.putMappingRequest(index).type(type).source(properties);
             client.admin().indices().putMapping(mapping).get();
 
-            CreateIndexRequest request_click = new CreateIndexRequest(index_click);
-            request_click.settings(settingsBuilder);
-            client.admin().indices().create(request_click).get();
-            //创建mapping
-            PutMappingRequest mapping_click = Requests.putMappingRequest(index_click).type(type_click)
-                    .source(properties_click);
-            client.admin().indices().putMapping(mapping_click).get();
-            importData(client, index, type, index_click, type_click);
+            importData(client, index, type);
         }catch (Exception e){
             logger.error("创建索引失败",e);
         }
         return new AsyncResult<String>("ok");
     }
 
-    private void importData(TransportClient client, String index, String type, String index_click, String type_click)
+    private void importData(TransportClient client, String index, String type)
             throws Exception{
         List<String[]> list = ExcelReadUtil.readExcel(Constants.GF_DATA_PATH);
         BulkRequestBuilder bulkRequest = client.prepareBulk();
@@ -112,21 +95,25 @@ public class InitMapperService {
                     .prepareIndex(index, type, uuid)
                     .setSource(jsonBuilder()
                             .startObject()
-                            .field("id", uuid)
                             .field("question", str[0])
                             .field("answer", str[1])
                             .field("keywords", str[2])
+                            .field("joiner","parent")
                             .endObject()
                     )
                     .request();
             bulkRequest.add(request);
             IndexRequest request_click = client
-                    .prepareIndex(index_click, type_click, uuid)
+                    .prepareIndex(index, type, null)
                     .setRouting(uuid)
                     .setSource(jsonBuilder()
                             .startObject()
-                            .field("id", uuid)
+                            .field("mapid",uuid)
                             .field("clicks", ++len)
+                            .startObject("joiner")
+                            .field("name","child")
+                            .field("parent",uuid)
+                            .endObject()
                             .endObject()
                     )
                     .request();

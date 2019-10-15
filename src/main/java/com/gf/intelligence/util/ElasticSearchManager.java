@@ -29,8 +29,7 @@ public class ElasticSearchManager implements InitializingBean {
     public void afterPropertiesSet() throws Exception {
         if (!indexExists(Constants.GF_INDEX)) {
             logger.info("index for travel guide not fount,starting to create...");
-            initMapperService.createGFMapping(esClient.client,Constants.GF_INDEX,Constants.GF_TYPE,
-                    Constants.GF_INDEX_CLICK,Constants.GF_TYPE_CLICK);
+            initMapperService.createGFMapping(esClient.client,Constants.GF_INDEX,Constants.GF_TYPE);
         }
     }
 

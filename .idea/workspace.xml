@@ -2,16 +2,16 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="ee3ab672-72f7-47dc-8858-fdfb0d1b63cc" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/src/main/resources/templates/socket2.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/gf/intelligence/BootApiApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/gf/intelligence/BootApiApplication.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/gf/intelligence/web/ChatController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/gf/intelligence/web/ChatController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/gf/intelligence/web/WebSocket.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/gf/intelligence/web/WebSocket.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/gf/intelligence/constant/Constants.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/gf/intelligence/constant/Constants.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/gf/intelligence/service/ChatService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/gf/intelligence/service/ChatService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/gf/intelligence/service/InitMapperService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/gf/intelligence/service/InitMapperService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/gf/intelligence/util/ElasticSearchManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/gf/intelligence/util/ElasticSearchManager.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/application.properties" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/resources/templates/socket.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/socket.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/application.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/gf/intelligence/BootApiApplication.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/gf/intelligence/BootApiApplication.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/gf/intelligence/web/ChatController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/gf/intelligence/web/ChatController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/gf/intelligence/constant/Constants.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/gf/intelligence/constant/Constants.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/gf/intelligence/service/InitMapperService.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/gf/intelligence/service/InitMapperService.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/gf/intelligence/util/ElasticSearchManager.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/gf/intelligence/util/ElasticSearchManager.class" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -47,6 +47,7 @@
     <property name="project.structure.last.edited" value="Modules" />
     <property name="project.structure.proportion" value="0.17291507" />
     <property name="project.structure.side.proportion" value="0.32192415" />
+    <property name="restartRequiresConfirmation" value="false" />
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
@@ -104,6 +105,7 @@
       <workItem from="1570967764412" duration="183000" />
       <workItem from="1570967961026" duration="25996000" />
       <workItem from="1571055767942" duration="11891000" />
+      <workItem from="1571145783474" duration="9686000" />
     </task>
     <servers />
   </component>
@@ -115,10 +117,23 @@
       <map>
         <entry key="MAIN">
           <value>
-            <State />
+            <State>
+              <option name="COLUMN_ORDER" />
+            </State>
           </value>
         </entry>
       </map>
     </option>
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/com/gf/intelligence/service/ChatService.java</url>
+          <line>54</line>
+          <option name="timeStamp" value="6" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
 </project>

@@ -1,11 +1,12 @@
 <!DOCTYPE html>
-<html>
+<html xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="utf-8" />
     <title></title>
     <link rel="stylesheet" type="text/css" href="/intelligence/static/css/css.css"/>
 </head>
 <body>
+<div>
 <div class="container">
   <div class="top_div">
     智能客服
@@ -17,7 +18,8 @@
       </div>
       </div>
       <div class="input_txt">
-        <textarea placeholder="请用一句话描述您的问题，例如“网银如何支付”" id="txt"></textarea>
+        <input placeholder="请用一句话描述您的问题，例如“网银如何支付”" id="txt" type="text"></input>
+        <select id="selections"></select>
       </div>
       <div class="btn">
         <a href="#" class="btn6">发送</a>
@@ -25,6 +27,8 @@
     </div>
   </div>
 </div>
+</div>
+<input  type="text" th:value="${username}" id="username" style="display: none" />
 <script type="text/javascript" src="/intelligence/static/js/jquery.min.js"></script>
 <script src="/intelligence/static/js/jquery.nicescroll.js"></script>
 <script type="text/javascript">
@@ -38,6 +42,29 @@
       cursorborderradius:"6px"
     });
   });
+  window.onload = function(){
+    //获取文本框对象
+    var searchText = document.getElementById("txt");
+    //获取提交button对象
+    var action = document.getElementById("btn6");
+    //获取要增加到的下拉列表对象
+    var selections = document.getElementById("selections");
+    //点击提交的时候执行的方法
+    action.onclick = function(){
+      //如果文本框对象中值不为空
+      if(searchText.value ){
+        //根据文本框中的值循环5次
+        for(var i =5;i>0;i--){
+          //设置下拉列表中的值的属性
+          var option = document.createElement("option");
+          option.value = searchText.value + i;
+          option.text= searchText.value+i;
+          //将option增加到下拉列表中。
+          selections.options.add(option);
+        }
+      }
+    }
+  }
 	function setPos() {
 		var div = document.getElementById('lanrenzhijia');
 		div.scrollTop = div.scrollHeight;
@@ -50,7 +77,8 @@
     var webSocket;
     if ("WebSocket" in window)
     {
-        webSocket = new WebSocket("ws://localhost:8088/intelligence/websocket/wushubiao");
+        var data = $("#username").val();
+        webSocket = new WebSocket("ws://localhost:8088/intelligence/websocket/"+document.getElementById('username').value);
 
         //连通之后的回调事件
         webSocket.onopen = function()

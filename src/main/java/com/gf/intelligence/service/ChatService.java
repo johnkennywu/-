@@ -12,6 +12,7 @@ import org.elasticsearch.index.query.MatchQueryBuilder;
 import org.elasticsearch.index.query.QueryBuilders;
 import org.elasticsearch.search.SearchHit;
 import org.elasticsearch.search.SearchHits;
+import org.elasticsearch.search.sort.SortOrder;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -48,8 +49,9 @@ public class ChatService {
             }
             String keys = StringUtils.join(keywords, ",");
             MatchQueryBuilder matchQuery = QueryBuilders.matchQuery("keywords", keys);
-            SearchResponse searchResponse = esClient.client.prepareSearch(Constants.GF_INDEX,Constants.GF_INDEX_CLICK).
-                    setTypes( Constants.GF_TYPE, Constants.GF_TYPE_CLICK).setQuery(matchQuery).get();
+            SearchResponse searchResponse = esClient.client.prepareSearch(Constants.GF_INDEX).
+                    setTypes( Constants.GF_TYPE).setQuery(matchQuery).addSort("_score", SortOrder.DESC)
+                    .addSort("clicks",SortOrder.DESC).get();
             SearchHits hit = searchResponse.getHits();
             long totalHits = hit.getTotalHits();
             if (totalHits < 1) {
