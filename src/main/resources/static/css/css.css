@@ -1,0 +1,40 @@
+@charset "utf-8";
+/* CSS Document */
+* {
+    margin: 0;
+    padding: 0;
+    font-family: Microsoft YaHei;
+}
+
+img {
+    border: none;
+    vertical-align: middle;
+}
+
+a {
+    text-decoration: none;
+}
+
+body {
+    background: #cccccc;
+}
+
+.clear {
+    clear: both;
+}
+.container { width:800px; margin:auto;    }
+.top_div {   border-top:2px solid #1880c1; background:url(../img/bg.png) repeat-x; border-bottom:1px solid #dddddd;  }
+.top_div span { float:right; padding:10px 30px 0 0; }
+.main { width:800px; position:relative;  background:#ffffff; }
+.main_con {  background:#ffffff; border:1px solid #dddddd; padding-bottom:30px; }
+.dialog { background:#e7e7e7;  height:360px; padding:20px 8px; }
+.content1 { margin-bottom:12px; min-height:80px; }
+.content2 { margin-bottom:12px; min-height:80px;}
+.content1 p { display:contents; float:left; width:300px; margin-left:15px; background:#ffc764; color:#ffffff; font-size:12px; padding:12px 12px; border-radius:5px;   }
+.content2 p { display:contents; float:right; width:300px; margin-right:15px; background:#1c75bc; color:#ffffff; font-size:12px; padding:12px 12px; border-radius:5px;   }
+
+.input_txt textarea { width:96%; padding:10px 2%; font-size:16px; color:#717171; border:none; height:110px;   }
+.btn { padding:0 20px; margin-top:5px; }
+.btn6 { margin-left:8px; display:inline-block; float:right; font-size:16px; color:#ffffff; padding:3px 0; background:#1982c3; width:70px; text-align:center; }
+
+#lanrenzhijia{ height:360px; padding:0 25px;   overflow:hidden;}

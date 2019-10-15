@@ -6,6 +6,7 @@ import com.gf.intelligence.service.ChatService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Component;
 import org.springframework.web.context.ContextLoader;
 import org.springframework.web.context.WebApplicationContext;
@@ -48,11 +49,18 @@ public class WebSocket {
 
     private ChatService chatService;
 
-    /**
-     * 建立连接
-     *
-     * @param session
-     */
+    private static ApplicationContext applicationContext;
+
+
+    public static void setApplicationContext(ApplicationContext context) {
+        applicationContext = context;
+    }
+
+        /**
+         * 建立连接
+         *
+         * @param session
+         */
     @OnOpen
     public void onOpen(@PathParam("username") String username, Session session)
     {
@@ -126,8 +134,7 @@ public class WebSocket {
     {
         try {
             logger.info("来自客户端消息：" + message+"客户端的id是："+session.getId());
-            WebApplicationContext context = ContextLoader.getCurrentWebApplicationContext();
-            chatService = (ChatService) context.getBean("com.gf.intelligence.service.ChatService");
+            chatService = (ChatService) applicationContext.getBean("chatService");
             String rtnMsg = chatService.input(message);
             sendMessageTo(rtnMsg, username);
         }

@@ -1,8 +1,10 @@
 package com.gf.intelligence;
 
+import com.gf.intelligence.web.WebSocket;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
+import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.scheduling.annotation.EnableAsync;
 import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
@@ -21,6 +23,7 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 @EnableTransactionManagement
 public class BootApiApplication {
     public static void main(String[] args) throws Exception {
-        SpringApplication.run(BootApiApplication.class, args);
+        ConfigurableApplicationContext context = SpringApplication.run(BootApiApplication.class, args);
+        WebSocket.setApplicationContext(context);
     }
 }

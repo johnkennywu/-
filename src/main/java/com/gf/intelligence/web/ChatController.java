@@ -1,20 +1,9 @@
 package com.gf.intelligence.web;
 
-import com.gf.intelligence.constant.Constants;
-import com.gf.intelligence.dto.ChatRequest;
 import com.gf.intelligence.dto.ClickRequest;
-import com.gf.intelligence.dto.Question;
 import com.gf.intelligence.util.ElasticSearchClient;
-import org.ansj.domain.Term;
-import org.ansj.splitWord.analysis.ToAnalysis;
-import org.apache.commons.lang3.StringUtils;
-import org.elasticsearch.action.search.SearchResponse;
 import org.elasticsearch.action.update.UpdateResponse;
 import org.elasticsearch.common.xcontent.XContentFactory;
-import org.elasticsearch.index.query.MatchQueryBuilder;
-import org.elasticsearch.index.query.QueryBuilders;
-import org.elasticsearch.search.SearchHit;
-import org.elasticsearch.search.SearchHits;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,10 +11,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import com.alibaba.fastjson.JSON;
-
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
 
 /**
  * @author wushubiao

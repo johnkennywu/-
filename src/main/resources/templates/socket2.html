@@ -1,53 +1,34 @@
 <!DOCTYPE html>
-<html>
+<html xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
-    <meta charset="utf-8" />
-    <title></title>
-    <link rel="stylesheet" type="text/css" href="css.css"/>
+    <title>websocket</title>
+    <script type="text/javascript" src="http://ajax.microsoft.com/ajax/jquery/jquery-1.4.min.js"></script>
+    <script src="http://cdn.bootcss.com/stomp.js/2.3.3/stomp.min.js"></script>
+    <script src="https://cdn.bootcss.com/sockjs-client/1.1.4/sockjs.min.js"></script>
 </head>
+
 <body>
-<div class="container">
-  <div class="top_div">
-    智能客服
-  </div>
-  <div class="main">
-    <div class="main_con">
-      <div class="dialog">
-      <div id="lanrenzhijia">
-      </div>
-      </div>
-      <div class="input_txt">
-        <textarea placeholder="请用一句话描述您的问题，例如“网银如何支付”" id="txt"></textarea>
-      </div>
-      <div class="btn">
-        <a href="#" class="btn6">发送</a>
-      </div>
-    </div>
-  </div>
+<div style="margin: auto;text-align: center">
+    <h1>Welcome to websocket</h1>
 </div>
-<script type="text/javascript" src="js/jquery.min.js"></script>
-<script src="js/jquery.nicescroll.js"></script>
+<br/>
+<div style="margin: auto;text-align: center">
+    <input id="text" type="text" />
+    <button onclick="send()">发送消息</button>
+</div>
+<br/>
+<div style="margin-right: 10px;text-align: right">
+    <button onclick="closeWebSocket()">关闭连接</button>
+</div>
+<hr/>
+<div id="message" style="text-align: center;"></div>
+<input  type="text" th:value="${username}" id="username" style="display: none" />
+</body>
+
+
 <script type="text/javascript">
-  $(function(){
-    $("#lanrenzhijia").niceScroll({
-      cursorcolor:"#67a8d1",
-      cursoropacitymax:1,
-      touchbehavior:false,
-      cursorwidth:"6px",
-      cursorborder:"0",
-      cursorborderradius:"6px"
-    });
-  });
-	function setPos() {
-		var div = document.getElementById('lanrenzhijia');
-		div.scrollTop = div.scrollHeight;
-	}
-  $('.btn6').click(function(){
-      $("#lanrenzhijia").append("<div class='content1'><p>访客：</p><p>"+$('#txt').val()+"</p><div class='clear'></div></div>");
-	  setPos();
-      send();
-  });
     var webSocket;
+    var commWebSocket;
     if ("WebSocket" in window)
     {
         webSocket = new WebSocket("ws://localhost:8088/intelligence/websocket/"+document.getElementById('username').value);
@@ -90,10 +71,10 @@
     }
 
     function send() {
-        setMessageInnerHTML($("#txt").val());
+        setMessageInnerHTML($("#text").val());
         var message = document.getElementById('text').value;
         webSocket.send(message);
     }
 </script>
-</body>
+
 </html>
