@@ -40,18 +40,22 @@ public class ScheduledTask {
     private ClickService clickService;
 
     @Scheduled(cron = "0 0 0 * * ? ")
-    public void updateclick() throws Exception{
-        List<ClickDto> list = clickService.getAll();
-        BulkRequestBuilder bulkRequest = esClient.client.prepareBulk();
-        for(ClickDto dto:list){
-            UpdateRequest request = esClient.client
-                    .prepareUpdate(Constants.GF_INDEX, Constants.GF_TYPE, dto.getId())
-                    .setDoc(jsonBuilder().startObject().field("clicks",dto.getClicks())).request();
-            bulkRequest.add(request);
-        }
-        BulkResponse bulkResponse = bulkRequest.execute().actionGet();
-        if (bulkResponse.hasFailures()) {
-            throw new Exception("更新点击量失败");
+    public void updateclick() {
+        try {
+            List<ClickDto> list = clickService.getAll();
+            BulkRequestBuilder bulkRequest = esClient.client.prepareBulk();
+            for (ClickDto dto : list) {
+                UpdateRequest request = esClient.client
+                        .prepareUpdate(Constants.GF_INDEX, Constants.GF_TYPE, dto.getId())
+                        .setDoc(jsonBuilder().startObject().field("clicks", dto.getClicks())).request();
+                bulkRequest.add(request);
+            }
+            BulkResponse bulkResponse = bulkRequest.execute().actionGet();
+            if (bulkResponse.hasFailures()) {
+                throw new Exception("更新点击量失败");
+            }
+        }catch (Exception e){
+            logger.error("更新点击量异常{}",e);
         }
     }
 }

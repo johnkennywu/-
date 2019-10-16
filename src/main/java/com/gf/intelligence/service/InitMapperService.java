@@ -68,7 +68,7 @@ public class InitMapperService {
                     .startObject("question").field("type", "keyword").endObject()
                     .startObject("answer").field("type", "keyword").endObject()
                     .startObject("keywords").field("type","text").field("analyzer","comma")
-                    .field("index_options","docs").endObject()
+                    .endObject()
                     .startObject("clicks").field("type","long").endObject()
 //                    .startObject("joiner").field("type","join")
 //                    .startObject("relations").field("parent","child").endObject().endObject()

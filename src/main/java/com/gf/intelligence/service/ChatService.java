@@ -8,6 +8,7 @@ import org.ansj.domain.Term;
 import org.ansj.splitWord.analysis.ToAnalysis;
 import org.apache.commons.lang3.StringUtils;
 import org.elasticsearch.action.search.SearchResponse;
+import org.elasticsearch.index.query.BoolQueryBuilder;
 import org.elasticsearch.index.query.MatchPhraseQueryBuilder;
 import org.elasticsearch.index.query.MatchQueryBuilder;
 import org.elasticsearch.index.query.QueryBuilders;
@@ -48,9 +49,12 @@ public class ChatService {
                 keywords.add(t.getName());
             }
             String keys = StringUtils.join(keywords, ",");
-            MatchQueryBuilder matchQuery = QueryBuilders.matchQuery("keywords", keys);
+            BoolQueryBuilder boolQuery = QueryBuilders.boolQuery();
+            for(String key:keywords) {
+                boolQuery = boolQuery.should(QueryBuilders.constantScoreQuery(QueryBuilders.matchQuery("keywords", key)));
+            }
             SearchResponse searchResponse = esClient.client.prepareSearch(Constants.GF_INDEX).
-                    setTypes( Constants.GF_TYPE).setQuery(matchQuery).addSort("_score", SortOrder.DESC)
+                    setTypes( Constants.GF_TYPE).setQuery(boolQuery).addSort("_score", SortOrder.DESC)
                     .addSort("clicks",SortOrder.DESC).get();
             SearchHits hit = searchResponse.getHits();
             long totalHits = hit.getTotalHits();

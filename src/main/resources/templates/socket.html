@@ -17,9 +17,10 @@
       <div id="lanrenzhijia">
       </div>
       </div>
+      <select class="select1" size="5" id="ques"  style="display: none" onchange="option_click()">
+      </select>
       <div class="input_txt">
         <input placeholder="请用一句话描述您的问题，例如“网银如何支付”" id="txt" type="text"></input>
-        <select id="selections"></select>
       </div>
       <div class="btn">
         <a href="#" class="btn6">发送</a>
@@ -42,38 +43,28 @@
       cursorborderradius:"6px"
     });
   });
-  window.onload = function(){
-    //获取文本框对象
-    var searchText = document.getElementById("txt");
-    //获取提交button对象
-    var action = document.getElementById("btn6");
-    //获取要增加到的下拉列表对象
-    var selections = document.getElementById("selections");
-    //点击提交的时候执行的方法
-    action.onclick = function(){
-      //如果文本框对象中值不为空
-      if(searchText.value ){
-        //根据文本框中的值循环5次
-        for(var i =5;i>0;i--){
-          //设置下拉列表中的值的属性
-          var option = document.createElement("option");
-          option.value = searchText.value + i;
-          option.text= searchText.value+i;
-          //将option增加到下拉列表中。
-          selections.options.add(option);
-        }
-      }
-    }
-  }
 	function setPos() {
 		var div = document.getElementById('lanrenzhijia');
 		div.scrollTop = div.scrollHeight;
 	}
   $('.btn6').click(function(){
-      $("#lanrenzhijia").append('<div class="content1"><p>访客：</p><p>'+$('#txt').val()+'</p><div class="clear"></div></div>');
-	  setPos();
+      //$("#lanrenzhijia").append('<div class="content1"><p class="content1p">访客：</p><p class="content1p">'+$('#txt').val()+'</p><div class="clear"></div></div>');
 	  send()
   });
+  window.obj;
+  // $('.ques').change(function(){
+  function option_click(){
+    var oo = window.obj;
+    var optionId = $('#ques').children('option:selected').val();
+    $("#lanrenzhijia").append('<div class="content1"><p class="content1p">访客：</p><p class="content1p">'+oo[optionId].question+'</p><div class="clear"></div></div>');
+    $("#lanrenzhijia").append('<div class="content2"><p class="content2p">智能小宝：</p><p class="content2p">'+oo[optionId].answer+'</p><div class="clear"></div></div>');
+    setPos();
+    var httpRequest = new XMLHttpRequest();
+    httpRequest.open('POST', 'localhost:8088/intelligence/chat/click', true);
+    httpRequest.setRequestHeader("Content-type","application/json");
+    var idRequest = { id: oo[optionId]};
+    httpRequest.send(JSON.stringify(idRequest));
+  }
     var webSocket;
     if ("WebSocket" in window)
     {
@@ -87,12 +78,18 @@
         };
 
         //接收后台服务端的消息
-        webSocket.onmessage = function (evt)
-        {
-            var received_msg = evt.data;
-            console.log("数据已接收:" +received_msg);
-            var obj = JSON.parse(received_msg);
-        };
+        webSocket.onmessage = function (evt) {
+          var received_msg = evt.data;
+          console.log("数据已接收:" + received_msg);
+          window.obj = JSON.parse(received_msg);
+          var ob = window.obj
+          $("#ques").empty();
+          for (var o in ob) {
+            $("#ques").append('<option value="'+o+'">'+ob[o].question+'</option>');
+          }
+          document.getElementById('ques').style.display="block";
+          ;
+        }
 
         //连接关闭的回调事件
         webSocket.onclose = function()
