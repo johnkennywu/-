@@ -1,6 +1,7 @@
 package com.gf.intelligence.web;
 
 import com.gf.intelligence.dto.ClickRequest;
+import com.gf.intelligence.service.ClickService;
 import com.gf.intelligence.util.ElasticSearchClient;
 import org.elasticsearch.action.update.UpdateResponse;
 import org.elasticsearch.common.xcontent.XContentFactory;
@@ -23,45 +24,9 @@ import com.alibaba.fastjson.JSON;
 @RequestMapping("/chat")
 public class ChatController {
     private static final Logger logger = LoggerFactory.getLogger(ChatController.class);
+
     @Autowired
-    private ElasticSearchClient esClient;
-
-    private final static int SHOW_NUMBER = 5;
-
-//    @RequestMapping(value="/input",method = RequestMethod.GET)
-//    public String input(@RequestParam(value="text") String text){
-//        List<Question> questions = new ArrayList<Question>();
-//        List<String> keywords = new ArrayList<String>();
-//        try {
-////        ChatRequest req = JSON.parseObject(request,ChatRequest.class);
-//            List<Term> terms = ToAnalysis.parse(text).getTerms();
-//            for (Term t : terms) {
-//                keywords.add(t.getName());
-//            }
-//            String keys = StringUtils.join(keywords, ",");
-//            MatchQueryBuilder matchQuery = QueryBuilders.matchQuery("keywords", keys);
-//            SearchResponse searchResponse = esClient.client.prepareSearch(Constants.GF_INDEX,Constants.GF_INDEX_CLICK).
-//                    setTypes( Constants.GF_TYPE, Constants.GF_TYPE_CLICK).setQuery(matchQuery).get();
-//            SearchHits hit = searchResponse.getHits();
-//            long totalHits = hit.getTotalHits();
-//            if (totalHits < 1) {
-//                return null;
-//            }
-//            SearchHit[] hits = hit.getHits();
-//
-//            for (int i = 0; i < Math.min(SHOW_NUMBER,hits.length); i++) {
-//                Map<String, Object> docMap = hits[i].getSourceAsMap();
-//                Question ques = new Question();
-//                ques.setId(hits[i].getId());
-//                ques.setQuestion((String) docMap.get("question"));
-//                ques.setAnswer((String) docMap.get("answer"));
-//                questions.add(ques);
-//            }
-//        }catch (Exception e){
-//            logger.error("搜索异常{}",e);
-//        }
-//        return JSON.toJSONString(questions);
-//    }
+    private ClickService clickService;
 
     @RequestMapping("/websocket/{name}")
     public String webSocket(@PathVariable String name, Model model){
@@ -81,8 +46,7 @@ public class ChatController {
     public void click(@RequestBody String request){
         try {
             ClickRequest req = JSON.parseObject(request, ClickRequest.class);
-            UpdateResponse rsp = esClient.client.prepareUpdate("gf", "data", req.getId()).setDoc(XContentFactory.
-                    jsonBuilder().startObject().field("", "").endObject()).execute().get();
+            clickService.updateClicks(req.getId());
         }catch (Exception e){
         }
     }

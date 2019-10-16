@@ -1,6 +1,7 @@
 package com.gf.intelligence.service;
 
 import com.gf.intelligence.constant.Constants;
+import com.gf.intelligence.dto.ClickDto;
 import com.gf.intelligence.dto.Question;
 import com.gf.intelligence.util.ExcelReadUtil;
 import org.assertj.core.internal.Bytes;
@@ -17,10 +18,12 @@ import org.elasticsearch.common.xcontent.XContentBuilder;
 import org.elasticsearch.common.xcontent.XContentFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.scheduling.annotation.AsyncResult;
 import org.springframework.stereotype.Component;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 import java.util.concurrent.Future;
@@ -37,6 +40,10 @@ import static org.elasticsearch.common.xcontent.XContentFactory.jsonBuilder;
 @Component
 public class InitMapperService {
     private static Logger logger = LoggerFactory.getLogger(InitMapperService.class);
+
+    @Autowired
+    private ClickService clickService;
+
     @Async
     public Future<String> createGFMapping(TransportClient client, String index, String type){
         logger.info("开始创建索引");
@@ -60,11 +67,11 @@ public class InitMapperService {
                     .startObject("properties")
                     .startObject("question").field("type", "keyword").endObject()
                     .startObject("answer").field("type", "keyword").endObject()
-                    .startObject("keywords").field("type","text").field("analyzer","comma").endObject()
-                    .startObject("mapid").field("type","keyword").endObject()
+                    .startObject("keywords").field("type","text").field("analyzer","comma")
+                    .field("index_options","docs").endObject()
                     .startObject("clicks").field("type","long").endObject()
-                    .startObject("joiner").field("type","join")
-                    .startObject("relations").field("parent","child").endObject().endObject()
+//                    .startObject("joiner").field("type","join")
+//                    .startObject("relations").field("parent","child").endObject().endObject()
                     .endObject()
                     .endObject()
                     .endObject();
@@ -87,7 +94,7 @@ public class InitMapperService {
             throws Exception{
         List<String[]> list = ExcelReadUtil.readExcel(Constants.GF_DATA_PATH);
         BulkRequestBuilder bulkRequest = client.prepareBulk();
-        BulkRequestBuilder bulkRequest_click = client.prepareBulk();
+        List<ClickDto> dtoList = new ArrayList<ClickDto>();
         long len = 0;
         for(String[] str:list) {
             String uuid = UUID.randomUUID().toString();
@@ -98,31 +105,20 @@ public class InitMapperService {
                             .field("question", str[0])
                             .field("answer", str[1])
                             .field("keywords", str[2])
-                            .field("joiner","parent")
+                            .field("clicks",0)
                             .endObject()
                     )
                     .request();
             bulkRequest.add(request);
-            IndexRequest request_click = client
-                    .prepareIndex(index, type, null)
-                    .setRouting(uuid)
-                    .setSource(jsonBuilder()
-                            .startObject()
-                            .field("mapid",uuid)
-                            .field("clicks", ++len)
-                            .startObject("joiner")
-                            .field("name","child")
-                            .field("parent",uuid)
-                            .endObject()
-                            .endObject()
-                    )
-                    .request();
-            bulkRequest_click.add(request_click);
+            ClickDto dto = new ClickDto();
+            dto.setId(uuid);
+            dto.setClicks(0);
+            dtoList.add(dto);
         }
         BulkResponse bulkResponse = bulkRequest.execute().actionGet();
-        BulkResponse bulkResponse_click = bulkRequest_click.execute().actionGet();
-        if (bulkResponse.hasFailures()||bulkResponse_click.hasFailures()) {
+        if (bulkResponse.hasFailures()) {
             throw new Exception("导入数据失败");
         }
+        clickService.batchSave(dtoList);
     }
 }

@@ -8,6 +8,7 @@ import org.ansj.domain.Term;
 import org.ansj.splitWord.analysis.ToAnalysis;
 import org.apache.commons.lang3.StringUtils;
 import org.elasticsearch.action.search.SearchResponse;
+import org.elasticsearch.index.query.MatchPhraseQueryBuilder;
 import org.elasticsearch.index.query.MatchQueryBuilder;
 import org.elasticsearch.index.query.QueryBuilders;
 import org.elasticsearch.search.SearchHit;
@@ -42,7 +43,6 @@ public class ChatService {
         List<Question> questions = new ArrayList<Question>();
         List<String> keywords = new ArrayList<String>();
         try {
-//        ChatRequest req = JSON.parseObject(request,ChatRequest.class);
             List<Term> terms = ToAnalysis.parse(text).getTerms();
             for (Term t : terms) {
                 keywords.add(t.getName());
