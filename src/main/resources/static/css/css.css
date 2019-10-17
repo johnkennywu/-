@@ -17,9 +17,7 @@ body {
 .clear {
     clear: both;
 }
-.container { width:800px; margin:auto;    }
-.top_div {   border-top:2px solid #1880c1; background:url(../img/bg.png) repeat-x; border-bottom:1px solid #dddddd;  }
-.top_div span { float:right; padding:10px 30px 0 0; }
+.container { width:800px; margin:auto;}
 .main { width:800px; position:relative;  background:#ffffff; }
 .main_con {  background:#ffffff; border:1px solid #dddddd; padding-bottom:30px; }
 .dialog { background:#e7e7e7;  height:360px; padding:20px 8px; }

@@ -29,7 +29,7 @@ import java.util.Map;
  * @author wushubiao
  * @Title: ChatService
  * @ProjectName gf-intelligence
- * @Description:
+ * @Description: 搜索类，根据输入分词并查询，返回结果
  * @date 2019/10/14
  */
 @Component
@@ -38,21 +38,26 @@ public class ChatService {
     @Autowired
     private ElasticSearchClient esClient;
 
-    private final static int SHOW_NUMBER = 5;
-
+    /**
+     * 根据输入分词并查询，返回结果
+     * @param text
+     * @return
+     */
     public String input(String text){
         List<Question> questions = new ArrayList<Question>();
         List<String> keywords = new ArrayList<String>();
         try {
+            //***分词，新建default.dic，配置关键词，使得再词典中配置词不会被分词
             List<Term> terms = ToAnalysis.parse(text).getTerms();
             for (Term t : terms) {
                 keywords.add(t.getName());
             }
-            String keys = StringUtils.join(keywords, ",");
+            //***should查询及Constant_score打分,忽略IDF/TF,使得结果只跟关键词命中次数相关
             BoolQueryBuilder boolQuery = QueryBuilders.boolQuery();
             for(String key:keywords) {
                 boolQuery = boolQuery.should(QueryBuilders.constantScoreQuery(QueryBuilders.matchQuery("keywords", key)));
             }
+            //设置_score主排序，点击量次排序
             SearchResponse searchResponse = esClient.client.prepareSearch(Constants.GF_INDEX).
                     setTypes( Constants.GF_TYPE).setQuery(boolQuery).addSort("_score", SortOrder.DESC)
                     .addSort("clicks",SortOrder.DESC).get();
@@ -63,7 +68,7 @@ public class ChatService {
             }
             SearchHit[] hits = hit.getHits();
 
-            for (int i = 0; i < Math.min(SHOW_NUMBER,hits.length); i++) {
+            for (int i = 0; i < Math.min(Constants.SHOW_NUMBER,hits.length); i++) {
                 Map<String, Object> docMap = hits[i].getSourceAsMap();
                 Question ques = new Question();
                 ques.setId(hits[i].getId());

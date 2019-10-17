@@ -2,33 +2,24 @@
 <html>
 <head>
     <title>智能客服</title>
+    <link rel="stylesheet" type="text/css" href="/intelligence/static/css/index.css"/>
+    <meta charset="utf-8" />
 </head>
 
 <body>
-<div id="header">
-    <h2>智能客服</h2>
-    <link rel="stylesheet" type="text/css" href="../css/index.css"/>
-</div>
-
-<div id="main" class="nosidebar">
-    <div id="sidebar">
+<div class="main">
+    <div id="header">
+        <h2>智能客服</h2>
     </div>
-
-    <div id="content" class="main">
+    <div id="content" class="container">
         <div id="login-form">
-            <form onsubmit="" action="/login" accept-charset="UTF-8" method="post">
-                <label for="username">登录名</label>
-                <input type="text" name="username" id="username" />
-                <label for="password">密码</label>
-                <input type="password" name="password" id="password" />
-                <input type="submit" name="login" value="登录" id="login-submit" />
+            <form id="f" action="/intelligence/login/login" accept-charset="UTF-8" content-ty method="post">
+                <input class ="outer" placeholder="  用户名" type="text" name="username" id="username" /><br/><br/>
+                <input class ="outer" placeholder="  密码" type="password" name="password" id="password"/><br/><br/>
+                <input type="submit" value="登录" class="login-submit" id="login-submit" />
             </form>
         </div>
     </div>
 </div>
 </body>
-
-<script type="text/javascript">
-</script>
-
 </html>

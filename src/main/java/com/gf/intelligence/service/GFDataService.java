@@ -16,7 +16,7 @@ import java.util.List;
  * @author wushubiao
  * @Title: GFDataService
  * @ProjectName gf-intelligence
- * @Description:
+ * @Description:批量导入文档
  * @date 2019/10/10
  */
 @Component

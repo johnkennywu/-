@@ -13,7 +13,7 @@ import java.util.List;
  * @author wushubiao
  * @Title: ClickDao
  * @ProjectName gf-intelligence
- * @Description:
+ * @Description: 点击Dao
  * @date 2019/10/16
  */
 @Repository

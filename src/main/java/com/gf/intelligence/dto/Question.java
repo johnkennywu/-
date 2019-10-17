@@ -4,7 +4,7 @@ package com.gf.intelligence.dto;
  * @author wushubiao
  * @Title: QuestionDto
  * @ProjectName gf-intelligence
- * @Description:
+ * @Description:文档
  * @date 2019/10/9
  */
 public class Question {

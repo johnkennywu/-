@@ -14,7 +14,7 @@ import java.util.List;
  * @author wushubiao
  * @Title: ClickService
  * @ProjectName gf-intelligence
- * @Description:
+ * @Description: 点击service
  * @date 2019/10/16
  */
 @Component
@@ -40,6 +40,10 @@ public class ClickService {
         }
     }
 
+    /**
+     * 批量保存
+     * @param list
+     */
     public void batchSave(List<ClickDto> list){
         try {
             //批量存储的集合

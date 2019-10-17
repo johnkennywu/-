@@ -15,7 +15,7 @@ import java.util.List;
  * @author wushubiao
  * @Title: LoginService
  * @ProjectName gf-intelligence
- * @Description:
+ * @Description:登录service
  * @date 2019/10/14
  */
 @Component

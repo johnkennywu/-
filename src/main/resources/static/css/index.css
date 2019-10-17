@@ -1,2 +1,4 @@
 @charset "utf-8";
-.main { width:800px; position:relative;  background:#ffffff; }
+.main { text-align: center; padding:200px 100px;  background:#ffffff; }
+.login-submit {display:inline-block;*display:inline;*zoom:1;box-sizing:border-box;width: 282px;height:40px;height:38px\9;line-height:38px;padding:0 20px;margin-top:9px;*vertical-align:-6px;font-size:16px;font-weight:normal;color:#fff;text-align:center;background:#5a98de;border-radius:3px;-webkit-appearance:none;-moz-appearance:none;appearance:none;outline:none;border:none;cursor:pointer;}
+.outer {background: none;border: 1px solid #96a5b4;border-radius: 0px;height: 38px;width: 282px;border-radius: 2px;}

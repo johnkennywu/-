@@ -4,7 +4,7 @@ package com.gf.intelligence.dto;
  * @author wushubiao
  * @Title: ClickRequest
  * @ProjectName gf-intelligence
- * @Description:
+ * @Description:点击请求
  * @date 2019/10/9
  */
 public class ClickRequest {

@@ -11,7 +11,7 @@ import java.util.Map;
  * @author wushubiao
  * @Title: BeanMapper
  * @ProjectName gf-intelligence
- * @Description:
+ * @Description: 转换位ESMap工具类
  * @date 2019/10/10
  */
 public class BeanMapper {

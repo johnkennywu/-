@@ -26,7 +26,7 @@ import static org.elasticsearch.common.xcontent.XContentFactory.jsonBuilder;
  * @author wushubiao
  * @Title: ScheduledTask
  * @ProjectName gf-intelligence
- * @Description:
+ * @Description: 每天0点将数据库中文档的点击数同步到es中
  * @date 2019/10/16
  */
 @Component

@@ -10,7 +10,7 @@ import java.util.List;
  * @author wushubiao
  * @Title: LoginDao
  * @ProjectName gf-intelligence
- * @Description:
+ * @Description: 登录Dao
  * @date 2019/10/14
  */
 @Repository

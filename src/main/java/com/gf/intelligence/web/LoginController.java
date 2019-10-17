@@ -1,21 +1,15 @@
 package com.gf.intelligence.web;
 
-import com.alibaba.fastjson.JSON;
-import com.alibaba.fastjson.JSONObject;
 import com.gf.intelligence.constant.Constants;
 import com.gf.intelligence.dto.UserDto;
-import com.gf.intelligence.dto.UserRequest;
 import com.gf.intelligence.service.LoginService;
 import org.apache.commons.codec.digest.DigestUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
-
-import java.util.List;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.*;
 
 /**
  * @author wushubiao
@@ -24,31 +18,51 @@ import java.util.List;
  * @Description:
  * @date 2019/10/14
  */
-@RestController
+@Controller
 @RequestMapping("/login")
 public class LoginController {
     private static final Logger logger = LoggerFactory.getLogger(LoginController.class);
 
     @Autowired
     private LoginService loginService;
+
+    /**
+     * 登录
+     * @param username
+     * @param password
+     * @param model
+     * @return
+     */
     @RequestMapping(value="/login",method = RequestMethod.POST)
-    public String login(@RequestBody String request){
-        JSONObject object = new JSONObject();
+    public String login(@RequestParam(value = "username") String username, @RequestParam(value = "password")
+                        String password, Model model){
         try {
-            UserRequest req = JSON.parseObject(request, UserRequest.class);
-            UserDto dto = loginService.findByUser(req.getUsername()).get(0);
-            object.put("success",checkUser(req,dto));
+            UserDto dto = loginService.findByUser(username).get(0);
+            model.addAttribute("username",username);
+            return checkUser(password,dto)?"socket": "error";
         }catch (Exception e){
             logger.error("登录异常{}",e);
         }
-        return object.toJSONString();
+        return "error";
     }
-    private Boolean checkUser(UserRequest req,UserDto dto){
-        String pass = DigestUtils.sha1Hex(DigestUtils.sha1Hex(req.getPassword()+ Constants.GF_SALT));
+
+    /**
+     * 验证密码
+     * @param password
+     * @param dto
+     * @return
+     */
+    private Boolean checkUser(String password,UserDto dto){
+        String pass = DigestUtils.sha1Hex(DigestUtils.sha1Hex(password+ Constants.GF_SALT));
         return pass.equals(dto.getHashpassword());
     }
 
+    /**
+     * 生成加密串main函数
+     * @param args
+     */
     public static void main(String[] args) {
-        String hash_password
+        String hash_password = DigestUtils.sha1Hex(DigestUtils.sha1Hex("admin123"+ Constants.GF_SALT));
+        System.out.println(hash_password);
     }
 }

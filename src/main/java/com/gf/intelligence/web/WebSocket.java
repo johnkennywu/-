@@ -1,22 +1,15 @@
 package com.gf.intelligence.web;
 
-import com.alibaba.fastjson.JSON;
-import com.alibaba.fastjson.JSONObject;
 import com.gf.intelligence.service.ChatService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Component;
-import org.springframework.web.context.ContextLoader;
-import org.springframework.web.context.WebApplicationContext;
 
 import javax.websocket.*;
 import javax.websocket.server.PathParam;
 import javax.websocket.server.ServerEndpoint;
-import java.util.HashMap;
 import java.util.Map;
-import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
 
 /**
@@ -56,11 +49,9 @@ public class WebSocket {
         applicationContext = context;
     }
 
-        /**
-         * 建立连接
-         *
-         * @param session
-         */
+    /**
+     * 新建连接
+     */
     @OnOpen
     public void onOpen(@PathParam("username") String username, Session session)
     {
@@ -70,22 +61,7 @@ public class WebSocket {
         this.session = session;
         logger.info("有新连接加入！ 当前在线人数" + onlineNumber);
         try {
-            //messageType 1代表上线 2代表下线 3代表在线名单 4代表普通消息
-            //先给所有人发送通知，说我上线了
-//            Map<String,Object> map1 = new HashMap<String,Object>();
-//            map1.put("messageType",1);
-//            map1.put("username",username);
-//            sendMessageAll(JSON.toJSONString(map1),username);
-
-            //把自己的信息加入到map当中去
             clients.put(username, this);
-            //给自己发一条消息：告诉自己现在都有谁在线
-//            Map<String,Object> map2 = new HashMap<String,Object>();
-//            map2.put("messageType",3);
-//            //移除掉自己
-//            Set<String> set = clients.keySet();
-//            map2.put("onlineUsers",set);
-//            sendMessageTo(JSON.toJSONString(map2),username);
         }
         catch (Exception e){
             logger.info(username+"上线的时候通知所有人发生了错误");
@@ -98,8 +74,8 @@ public class WebSocket {
     @OnError
     public void onError(Session session, Throwable error) {
         logger.info("服务端发生了错误"+error.getMessage());
-        //error.printStackTrace();
     }
+
     /**
      * 连接关闭
      */
@@ -107,19 +83,7 @@ public class WebSocket {
     public void onClose()
     {
         onlineNumber--;
-        //webSockets.remove(this);
         clients.remove(username);
-        try {
-            //messageType 1代表上线 2代表下线 3代表在线名单  4代表普通消息
-//            Map<String,Object> map1 =new HashMap<String,Object>();
-//            map1.put("messageType",2);
-//            map1.put("onlineUsers",clients.keySet());
-//            map1.put("username",username);
-//            sendMessageAll(JSON.toJSONString(map1),username);
-        }
-        catch (Exception e){
-            logger.info(username+"下线的时候通知所有人发生了错误");
-        }
         logger.info("有连接关闭！ 当前在线人数" + onlineNumber);
     }
 
@@ -144,7 +108,6 @@ public class WebSocket {
 
     }
 
-
     public void sendMessageTo(String message, String ToUserName) throws Exception {
         for (WebSocket item : clients.values()) {
             if (item.username.equals(ToUserName) ) {
@@ -152,15 +115,5 @@ public class WebSocket {
                 break;
             }
         }
-    }
-
-    public void sendMessageAll(String message,String FromUserName) throws Exception {
-        for (WebSocket item : clients.values()) {
-            item.session.getAsyncRemote().sendText(message);
-        }
-    }
-
-    public static synchronized int getOnlineCount() {
-        return onlineNumber;
     }
 }

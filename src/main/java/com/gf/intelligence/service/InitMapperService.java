@@ -34,7 +34,7 @@ import static org.elasticsearch.common.xcontent.XContentFactory.jsonBuilder;
  * @author wushubiao
  * @Title: InitMapperService
  * @ProjectName gf-intelligence
- * @Description:
+ * @Description: 创建索引，导入数据
  * @date 2019/10/9
  */
 @Component
@@ -48,6 +48,7 @@ public class InitMapperService {
     public Future<String> createGFMapping(TransportClient client, String index, String type){
         logger.info("开始创建索引");
         try{
+            //keywords设置逗号分词，gf索引的分片数目设为1，备份0
             XContentBuilder settingsBuilder = XContentFactory.jsonBuilder()
                     .startObject()
                     .startObject("analysis")
@@ -90,6 +91,7 @@ public class InitMapperService {
         return new AsyncResult<String>("ok");
     }
 
+    //首次导入文档数据到ES，并将文档点击数初始化到数据库中
     private void importData(TransportClient client, String index, String type)
             throws Exception{
         List<String[]> list = ExcelReadUtil.readExcel(Constants.GF_DATA_PATH);

@@ -14,7 +14,7 @@ import org.springframework.stereotype.Component;
  * @author wushubiao
  * @Title: ElasticSearchManager
  * @ProjectName gf-intelligence
- * @Description:
+ * @Description: es管理类，启动后检测索引，创建索引，导入数据
  * @date 2019/10/9
  */
 @Component
@@ -27,6 +27,7 @@ public class ElasticSearchManager implements InitializingBean {
     private InitMapperService initMapperService;
     @Override
     public void afterPropertiesSet() throws Exception {
+        //索引不存在开始创建并导入数据
         if (!indexExists(Constants.GF_INDEX)) {
             logger.info("index for travel guide not fount,starting to create...");
             initMapperService.createGFMapping(esClient.client,Constants.GF_INDEX,Constants.GF_TYPE);

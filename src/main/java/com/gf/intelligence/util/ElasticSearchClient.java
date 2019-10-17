@@ -18,7 +18,7 @@ import java.net.InetAddress;
  * @author wushubiao
  * @Title: ElasticSearchClient
  * @ProjectName gf-intelligence
- * @Description:
+ * @Description: esClient类,容器启动时创建
  * @date 2019/10/9
  */
 @Component

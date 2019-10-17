@@ -9,7 +9,7 @@ import javax.persistence.Table;
  * @author wushubiao
  * @Title: UserDto
  * @ProjectName gf-intelligence
- * @Description:
+ * @Description:用户登录类
  * @date 2019/10/14
  */
 @Entity
@@ -21,9 +21,6 @@ public class UserDto {
 
     @Column(name="hash_password")
     private String hashpassword;
-
-    @Column(name="salt")
-    private String salt;
 
     public String getUsername() {
         return username;
@@ -39,13 +36,5 @@ public class UserDto {
 
     public void setHashpassword(String hashpassword) {
         this.hashpassword = hashpassword;
-    }
-
-    public String getSalt() {
-        return salt;
-    }
-
-    public void setSalt(String salt) {
-        this.salt = salt;
     }
 }

@@ -9,7 +9,7 @@ import javax.persistence.Table;
  * @author wushubiao
  * @Title: ClickDto
  * @ProjectName gf-intelligence
- * @Description:
+ * @Description:文档对应的点击类
  * @date 2019/10/16
  */
 @Entity
