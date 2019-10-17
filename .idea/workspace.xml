@@ -3,32 +3,8 @@
   <component name="ChangeListManager">
     <list default="true" id="ee3ab672-72f7-47dc-8858-fdfb0d1b63cc" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/gf/intelligence/constant/Constants.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/gf/intelligence/constant/Constants.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/gf/intelligence/dao/ClickDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/gf/intelligence/dao/ClickDao.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/gf/intelligence/dao/LoginDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/gf/intelligence/dao/LoginDao.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/gf/intelligence/dto/ChatRequest.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/gf/intelligence/dto/ClickDto.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/gf/intelligence/dto/ClickDto.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/gf/intelligence/dto/ClickRequest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/gf/intelligence/dto/ClickRequest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/gf/intelligence/dto/Question.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/gf/intelligence/dto/Question.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/gf/intelligence/dto/UserDto.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/gf/intelligence/dto/UserDto.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/gf/intelligence/dto/UserRequest.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/gf/intelligence/job/ScheduledTask.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/gf/intelligence/job/ScheduledTask.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/gf/intelligence/service/ChatService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/gf/intelligence/service/ChatService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/gf/intelligence/service/ClickService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/gf/intelligence/service/ClickService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/gf/intelligence/service/GFDataService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/gf/intelligence/service/GFDataService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/gf/intelligence/service/InitMapperService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/gf/intelligence/service/InitMapperService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/gf/intelligence/service/LoginService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/gf/intelligence/service/LoginService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/gf/intelligence/util/BeanMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/gf/intelligence/util/BeanMapper.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/gf/intelligence/util/ElasticSearchClient.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/gf/intelligence/util/ElasticSearchClient.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/gf/intelligence/util/ElasticSearchManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/gf/intelligence/util/ElasticSearchManager.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/gf/intelligence/web/ChatController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/gf/intelligence/web/ChatController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/gf/intelligence/web/LoginController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/gf/intelligence/web/LoginController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/gf/intelligence/web/WebSocket.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/gf/intelligence/web/WebSocket.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/application.properties" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/resources/static/css/css.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/static/css/css.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/static/css/index.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/static/css/index.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/static/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/static/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/application.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/socket.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/socket.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/com/gf/intelligence/web/ChatController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/gf/intelligence/web/ChatController.class" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -43,17 +19,6 @@
         <option value="Class" />
       </list>
     </option>
-  </component>
-  <component name="FindInProjectRecents">
-    <findStrings>
-      <find>localhost</find>
-      <find>btn6</find>
-      <find>center</find>
-      <find>dates</find>
-    </findStrings>
-    <replaceStrings>
-      <replace>btn1</replace>
-    </replaceStrings>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />

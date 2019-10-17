@@ -20,7 +20,7 @@ body {
 .container { width:800px; margin:auto;}
 .main { width:800px; position:relative;  background:#ffffff; }
 .main_con {  background:#ffffff; border:1px solid #dddddd; padding-bottom:30px; }
-.dialog { background:#e7e7e7;  height:360px; padding:20px 8px; }
+.dialog { background:#e7e7e7;  height:380px; padding:20px 8px; }
 .content1 { margin-bottom:12px; min-height:80px; }
 .content2 { margin-bottom:12px; min-height:80px;}
 .content1p p { display:contents; float:left; width:300px; margin-left:15px; background:#ffc764; color:#ffffff; font-size:12px; padding:12px 12px; border-radius:5px;   }
@@ -31,4 +31,4 @@ body {
 .btn1 { margin-left:8px; display:inline-block; float:right; font-size:16px; color:#ffffff; padding:3px 0; background:#1982c3; width:70px; text-align:center; }
 .btn2 { margin-left:8px; display:inline-block; float:right; font-size:16px; color:#ffffff; padding:3px 0; background:#717171; width:70px; text-align:center; }
 
-#lanrenzhijia{ height:500px; padding:0 25px;   overflow:hidden;}
+#lanrenzhijia{ height:380px; padding:0 25px;   overflow:hidden;}

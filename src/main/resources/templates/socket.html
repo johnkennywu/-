@@ -73,7 +73,7 @@
     setPos();
     document.getElementById('ques').style.display="none";
     var httpRequest = new XMLHttpRequest();
-    httpRequest.open('POST', 'http://localhost:8088/intelligence/chat/click', true);
+    httpRequest.open('POST', '/intelligence/chat/click', true);
     httpRequest.setRequestHeader("Content-type","application/json");
     var idRequest = { id: oo[optionId].id};
     httpRequest.send(JSON.stringify(idRequest));
