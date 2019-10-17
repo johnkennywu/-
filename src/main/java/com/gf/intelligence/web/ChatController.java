@@ -42,12 +42,15 @@ public class ChatController {
         }
     }
 
+    @ResponseBody
     @RequestMapping(value="/click",method = RequestMethod.POST)
-    public void click(@RequestBody String request){
+    public String click(@RequestBody String request){
         try {
             ClickRequest req = JSON.parseObject(request, ClickRequest.class);
             clickService.updateClicks(req.getId());
+            return "success";
         }catch (Exception e){
         }
+        return "fail";
     }
 }

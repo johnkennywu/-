@@ -47,4 +47,8 @@ public class LoginController {
         String pass = DigestUtils.sha1Hex(DigestUtils.sha1Hex(req.getPassword()+ Constants.GF_SALT));
         return pass.equals(dto.getHashpassword());
     }
+
+    public static void main(String[] args) {
+        String hash_password
+    }
 }

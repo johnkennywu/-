@@ -23,8 +23,11 @@
         <input placeholder="请用一句话描述您的问题，例如“网银如何支付”" id="txt" type="text"></input>
       </div>
       <div class="btn">
-        <a href="#" class="btn6">发送</a>
+        <a href="#" id="btn1" class="btn1">发送</a>
       </div>
+    </div>
+    <div>
+      <p style="color:#717171; padding:3px 0;">发送快捷键：Enter</p>
     </div>
   </div>
 </div>
@@ -47,24 +50,44 @@
 		var div = document.getElementById('lanrenzhijia');
 		div.scrollTop = div.scrollHeight;
 	}
-  $('.btn6').click(function(){
-      //$("#lanrenzhijia").append('<div class="content1"><p class="content1p">访客：</p><p class="content1p">'+$('#txt').val()+'</p><div class="clear"></div></div>');
+  $('.btn1').click(function(){
+    document.getElementById('btn1').style = "margin-left:8px; display:inline-block; float:right; font-size:16px; color:#ffffff; padding:3px 0; background:#717171; width:70px; text-align:center;";
 	  send()
   });
+  $('.input_txt').each(function (){
+    this.onkeydown = function (e) {
+      var theEvent = window.event || e;;
+      var code = theEvent.keyCode || theEvent.which;
+      if (code == 13) {
+        $('.btn1').click();
+      }
+    }
+  });
   window.obj;
-  // $('.ques').change(function(){
   function option_click(){
     var oo = window.obj;
     var optionId = $('#ques').children('option:selected').val();
-    $("#lanrenzhijia").append('<div class="content1"><p class="content1p">访客：</p><p class="content1p">'+oo[optionId].question+'</p><div class="clear"></div></div>');
-    $("#lanrenzhijia").append('<div class="content2"><p class="content2p">智能小宝：</p><p class="content2p">'+oo[optionId].answer+'</p><div class="clear"></div></div>');
+    var t = dates('Y-m-d H:i:s');
+    $("#lanrenzhijia").append('<div class="content1"><p style="color:orange" >访客：(' + t + ')</p><p style="color:blue">'+oo[optionId].question+'</p><div class="clear"></div></div>');
+    $("#lanrenzhijia").append('<div class="content2"><p style="color:darkgreen">智能小宝：(' + t + ')</p><p style="color:blue">'+oo[optionId].answer+'</p><div class="clear"></div></div>');
     setPos();
+    document.getElementById('ques').style.display="none";
     var httpRequest = new XMLHttpRequest();
-    httpRequest.open('POST', 'localhost:8088/intelligence/chat/click', true);
+    httpRequest.open('POST', 'http://localhost:8088/intelligence/chat/click', true);
     httpRequest.setRequestHeader("Content-type","application/json");
-    var idRequest = { id: oo[optionId]};
+    var idRequest = { id: oo[optionId].id};
     httpRequest.send(JSON.stringify(idRequest));
   }
+  var dates = function(format) {
+    var timeLocal = new Date();
+    var year = timeLocal.getFullYear();
+    var month = timeLocal.getMonth() + 1;
+    var day = timeLocal.getDate();
+    var hour = timeLocal.getHours();
+    var minutes = timeLocal.getMinutes();
+    var second = timeLocal.getSeconds();
+    return format.replace("Y",year).replace("m",month).replace("d",day).replace("H",hour).replace("i",minutes).replace("s",second);
+  };
     var webSocket;
     if ("WebSocket" in window)
     {
@@ -85,10 +108,10 @@
           var ob = window.obj
           $("#ques").empty();
           for (var o in ob) {
-            $("#ques").append('<option value="'+o+'">'+ob[o].question+'</option>');
+            $("#ques").append('<option style="width:770px" value="'+o+'">'+ob[o].question+'</option>');
           }
-          document.getElementById('ques').style.display="block";
-          ;
+          document.getElementById('ques').style.display = "block";
+          document.getElementById('btn1').style = "margin-left:8px; display:inline-block; float:right; font-size:16px; color:#ffffff; padding:3px 0; background:#1982c3; width:70px; text-align:center;";
         }
 
         //连接关闭的回调事件

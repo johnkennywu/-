@@ -6,11 +6,6 @@
     font-family: Microsoft YaHei;
 }
 
-img {
-    border: none;
-    vertical-align: middle;
-}
-
 a {
     text-decoration: none;
 }
@@ -35,6 +30,7 @@ body {
 .input_txt input { width:96%; padding:10px 2%; font-size:16px; color:#717171; border:none; height:110px;   }
 .select1 select { width:800px; padding:10px 2%;}
 .btn { padding:0 20px; margin-top:5px; }
-.btn6 { margin-left:8px; display:inline-block; float:right; font-size:16px; color:#ffffff; padding:3px 0; background:#1982c3; width:70px; text-align:center; }
+.btn1 { margin-left:8px; display:inline-block; float:right; font-size:16px; color:#ffffff; padding:3px 0; background:#1982c3; width:70px; text-align:center; }
+.btn2 { margin-left:8px; display:inline-block; float:right; font-size:16px; color:#ffffff; padding:3px 0; background:#717171; width:70px; text-align:center; }
 
-#lanrenzhijia{ height:360px; padding:0 25px;   overflow:hidden;}
+#lanrenzhijia{ height:500px; padding:0 25px;   overflow:hidden;}
