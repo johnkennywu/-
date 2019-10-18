@@ -3,7 +3,9 @@ package com.gf.intelligence.service;
 import com.gf.intelligence.constant.Constants;
 import com.gf.intelligence.dto.ClickDto;
 import com.gf.intelligence.dto.Question;
+import com.gf.intelligence.dto.UserDto;
 import com.gf.intelligence.util.ExcelReadUtil;
+import org.apache.commons.codec.digest.DigestUtils;
 import org.assertj.core.internal.Bytes;
 import org.elasticsearch.action.admin.indices.alias.Alias;
 import org.elasticsearch.action.admin.indices.create.CreateIndexRequest;
@@ -43,6 +45,9 @@ public class InitMapperService {
 
     @Autowired
     private ClickService clickService;
+
+    @Autowired
+    private LoginService loginService;
 
     @Async
     public Future<String> createGFMapping(TransportClient client, String index, String type){
@@ -122,5 +127,15 @@ public class InitMapperService {
             throw new Exception("导入数据失败");
         }
         clickService.batchSave(dtoList);
+
+        String hash_password = DigestUtils.sha1Hex(DigestUtils.sha1Hex("admin123"+ Constants.GF_SALT));
+        UserDto dto1 =  new UserDto();
+        dto1.setUsername("admin");
+        dto1.setHashpassword(hash_password);
+        UserDto dto2 = new UserDto();
+        dto2.setUsername("admin123");
+        dto2.setHashpassword(hash_password);
+        loginService.save(dto1);
+        loginService.save(dto2);
     }
 }

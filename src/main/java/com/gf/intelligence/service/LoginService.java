@@ -31,4 +31,12 @@ public class LoginService {
             return new ArrayList();
         }
     }
+
+    public void save(UserDto dto){
+        try{
+            loginDao.save(dto);
+        }catch (Exception e){
+
+        }
+    }
 }
