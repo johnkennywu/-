@@ -39,7 +39,7 @@ public class ScheduledTask {
     @Autowired
     private ClickService clickService;
 
-    @Scheduled(cron = "0 0 0 * * ? ")
+    @Scheduled(cron = "0 08 16 * * ? ")
     public void updateclick() {
         try {
             List<ClickDto> list = clickService.getAll();
@@ -47,7 +47,7 @@ public class ScheduledTask {
             for (ClickDto dto : list) {
                 UpdateRequest request = esClient.client
                         .prepareUpdate(Constants.GF_INDEX, Constants.GF_TYPE, dto.getId())
-                        .setDoc(jsonBuilder().startObject().field("clicks", dto.getClicks())).request();
+                        .setDoc(jsonBuilder().startObject().field("clicks", dto.getClicks()).endObject()).request();
                 bulkRequest.add(request);
             }
             BulkResponse bulkResponse = bulkRequest.execute().actionGet();
