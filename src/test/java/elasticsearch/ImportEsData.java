@@ -37,7 +37,6 @@ public class ImportEsData {
             List<Question> questions = new ArrayList<Question>();
             for(String[] arr : list) {
                 Question q = new Question();
-//                q.setId(arr[0]);
                 q.setQuestion(arr[0]);
                 q.setAnswer(arr[1]);
                 q.setKeyword(arr[2]);

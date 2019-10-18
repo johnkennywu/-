@@ -2,6 +2,7 @@ package com.gf.intelligence.util;
 
 import com.gf.intelligence.constant.Constants;
 import com.gf.intelligence.service.InitMapperService;
+import org.ansj.splitWord.analysis.ToAnalysis;
 import org.elasticsearch.action.admin.indices.exists.indices.IndicesExistsRequest;
 import org.elasticsearch.client.Requests;
 import org.slf4j.Logger;
@@ -27,6 +28,7 @@ public class ElasticSearchManager implements InitializingBean {
     private InitMapperService initMapperService;
     @Override
     public void afterPropertiesSet() throws Exception {
+        ToAnalysis.parse("");
         //索引不存在开始创建并导入数据
         if (!indexExists(Constants.GF_INDEX)) {
             logger.info("index for travel guide not fount,starting to create...");
