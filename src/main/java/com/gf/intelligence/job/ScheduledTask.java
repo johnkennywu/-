@@ -39,7 +39,7 @@ public class ScheduledTask {
     @Autowired
     private ClickService clickService;
 
-    @Scheduled(cron = "0 08 16 * * ? ")
+    @Scheduled(cron = "0 0 0 * * ? ")
     public void updateclick() {
         try {
             List<ClickDto> list = clickService.getAll();
